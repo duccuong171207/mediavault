@@ -1,0 +1,17 @@
+import { createParamDecorator, ExecutionContext } from '@nestjs/common';
+
+export interface AuthUser {
+  id: string;
+  email: string;
+  username: string;
+  roles: string[];
+  permissions: string[];
+}
+
+/** Inject the authenticated user (populated by JwtStrategy) into a handler. */
+export const CurrentUser = createParamDecorator(
+  (data: keyof AuthUser | undefined, ctx: ExecutionContext): AuthUser | unknown => {
+    const req = ctx.switchToHttp().getRequest();
+    return data ? req.user?.[data] : req.user;
+  },
+);

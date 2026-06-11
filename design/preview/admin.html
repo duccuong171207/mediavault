@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>MediaVault — Admin Dashboard</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={darkMode:'class',theme:{extend:{colors:{brand:'#6366f1',ink:'#0b0d12',panel:'#12151c'}}}}</script>
+<style>body{font-family:Inter,system-ui,sans-serif}</style>
+</head>
+<body class="bg-slate-50 dark:bg-ink text-slate-900 dark:text-slate-100">
+<div class="flex min-h-screen">
+  <!-- SIDEBAR -->
+  <aside class="w-64 shrink-0 border-r border-slate-200 dark:border-slate-800 p-5 hidden lg:block">
+    <a href="index.html" class="font-bold text-lg">Media<span class="text-brand">Vault</span> <span class="text-xs text-slate-400">Admin</span></a>
+    <nav class="mt-8 space-y-1 text-sm">
+      <script>document.write([['📊 Dashboard',true],['👥 Users',false],['🖼 Media',false],['📁 Albums',false],['🏷 Categories',false],['📈 Analytics',false],['⚙ System Settings',false],['📜 Activity Logs',false]]
+        .map(n=>`<a href="#" class="flex items-center gap-2 px-3 py-2 rounded-lg ${n[1]?'bg-brand text-white':'hover:bg-slate-100 dark:hover:bg-slate-800'}">${n[0]}</a>`).join(''))</script>
+    </nav>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="flex-1 p-6 lg:p-8">
+    <div class="flex items-center justify-between mb-8">
+      <div><h1 class="text-2xl font-bold">Dashboard</h1><p class="text-slate-400 text-sm">Welcome back, Super Admin</p></div>
+      <div class="flex items-center gap-3">
+        <button onclick="document.documentElement.classList.toggle('dark')" class="w-10 h-10 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">🌓</button>
+        <button class="px-4 h-10 rounded-full bg-brand text-white text-sm font-semibold">+ Create User</button>
+      </div>
+    </div>
+
+    <!-- KPI WIDGETS -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      <script>document.write([
+        ['Total Users','1,284','+4.2%','👥'],['Total Photos','842,109','+1.1%','🖼'],
+        ['Total Videos','58,420','+6.7%','🎬'],['Total Albums','12,948','+2.3%','📁'],
+        ['Storage Used','42.8 TB','of 100 TB','💾'],['Daily Uploads','3,201','today','⬆'],
+        ['Daily Views','918,402','today','👁'],['Active Now','312','live','🟢']
+      ].map(k=>`<div class="rounded-2xl bg-white dark:bg-panel border border-slate-200 dark:border-slate-800 p-5">
+        <div class="flex items-center justify-between"><span class="text-2xl">${k[3]}</span><span class="text-xs text-emerald-500">${k[2]}</span></div>
+        <div class="text-2xl font-bold mt-3">${k[1]}</div><div class="text-sm text-slate-400">${k[0]}</div></div>`).join(''))</script>
+    </div>
+
+    <!-- CHART + TABLE -->
+    <div class="grid lg:grid-cols-3 gap-6">
+      <div class="lg:col-span-2 rounded-2xl bg-white dark:bg-panel border border-slate-200 dark:border-slate-800 p-6">
+        <div class="flex items-center justify-between mb-4"><h3 class="font-bold">Uploads & Views</h3>
+          <div class="flex gap-1 text-xs bg-slate-100 dark:bg-slate-800 rounded-lg p-1">
+            <button class="px-3 py-1 rounded bg-white dark:bg-slate-700">Daily</button><button class="px-3 py-1 text-slate-400">Weekly</button><button class="px-3 py-1 text-slate-400">Monthly</button><button class="px-3 py-1 text-slate-400">Yearly</button>
+          </div></div>
+        <!-- fake bar chart -->
+        <div class="flex items-end gap-2 h-48" id="chart"></div>
+      </div>
+
+      <div class="rounded-2xl bg-white dark:bg-panel border border-slate-200 dark:border-slate-800 p-6">
+        <h3 class="font-bold mb-4">Storage by type</h3>
+        <div class="space-y-3 text-sm" id="storage"></div>
+      </div>
+    </div>
+
+    <!-- RECENT USERS TABLE -->
+    <div class="rounded-2xl bg-white dark:bg-panel border border-slate-200 dark:border-slate-800 mt-6 overflow-hidden">
+      <div class="p-5 flex items-center justify-between"><h3 class="font-bold">Recent Users</h3><a class="text-sm text-brand">View all →</a></div>
+      <table class="w-full text-sm">
+        <thead class="text-left text-slate-400 border-y border-slate-200 dark:border-slate-800">
+          <tr><th class="px-5 py-3 font-medium">User</th><th class="font-medium">Role</th><th class="font-medium">Media</th><th class="font-medium">Status</th><th class="font-medium">Joined</th><th></th></tr>
+        </thead>
+        <tbody id="users"></tbody>
+      </table>
+    </div>
+  </main>
+</div>
+<script>
+document.getElementById('chart').innerHTML=[40,65,52,78,60,90,72,85,55,95,68,80,62,88].map(h=>`<div class="flex-1 rounded-t bg-gradient-to-t from-brand to-fuchsia-500" style="height:${h}%"></div>`).join('');
+document.getElementById('storage').innerHTML=[['Photos','58%','bg-brand'],['Videos','34%','bg-fuchsia-500'],['Thumbnails','5%','bg-emerald-500'],['Other','3%','bg-amber-500']]
+  .map(s=>`<div><div class="flex justify-between mb-1"><span>${s[0]}</span><span class="text-slate-400">${s[1]}</span></div><div class="h-2 rounded-full bg-slate-200 dark:bg-slate-800"><div class="h-2 rounded-full ${s[2]}" style="width:${s[1]}"></div></div></div>`).join('');
+document.getElementById('users').innerHTML=[
+  ['img=11','Marcus Reed','USER','142','Active','Jun 2'],['img=22','Priya Shah','ADMIN','0','Active','May 28'],
+  ['img=33','Tom Klein','USER','58','Suspended','May 20'],['img=44','Aria Lopez','USER','311','Active','May 14']
+].map(u=>`<tr class="border-b border-slate-100 dark:border-slate-800/60">
+  <td class="px-5 py-3 flex items-center gap-2"><img src="https://i.pravatar.cc/40?${u[0]}" class="w-8 h-8 rounded-full"/>${u[1]}</td>
+  <td><span class="px-2 py-0.5 rounded text-xs ${u[2]=='ADMIN'?'bg-brand/20 text-brand':'bg-slate-200 dark:bg-slate-700'}">${u[2]}</span></td>
+  <td>${u[3]}</td><td><span class="${u[4]=='Active'?'text-emerald-500':'text-red-400'}">●</span> ${u[4]}</td><td class="text-slate-400">${u[5]}</td>
+  <td class="pr-5 text-right text-slate-400">⋯</td></tr>`).join('');
+</script>
+</body></html>

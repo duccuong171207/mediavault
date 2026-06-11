@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MediaVault — Live Mockup</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: { DEFAULT: '#6366f1', hover: '#4f46e5' },
+            ink: '#0b0d12',
+            panel: '#12151c',
+          },
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+        },
+      },
+    };
+  </script>
+  <style>
+    body { font-family: Inter, system-ui, sans-serif; }
+    .masonry { column-gap: 1rem; }
+    @media (min-width: 640px) { .masonry { column-count: 2; } }
+    @media (min-width: 1024px) { .masonry { column-count: 3; } }
+    @media (min-width: 1536px) { .masonry { column-count: 4; } }
+    .masonry > * { break-inside: avoid; margin-bottom: 1rem; }
+    .card-hover { transition: transform .25s ease, box-shadow .25s ease; }
+    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -12px rgba(0,0,0,.5); }
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 8px; }
+  </style>
+</head>
+<body class="bg-white dark:bg-ink text-slate-900 dark:text-slate-100 antialiased">
+
+  <!-- ============ TOP NAV ============ -->
+  <header class="sticky top-0 z-50 backdrop-blur-xl bg-white/80 dark:bg-ink/80 border-b border-slate-200 dark:border-slate-800">
+    <div class="mx-auto max-w-[1600px] px-4 sm:px-6 lg:px-8 h-16 flex items-center gap-4">
+      <a href="#" class="flex items-center gap-2 font-bold text-lg shrink-0">
+        <span class="grid place-items-center w-9 h-9 rounded-xl bg-gradient-to-br from-brand to-fuchsia-500 text-white">▣</span>
+        Media<span class="text-brand">Vault</span>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-1 text-sm font-medium ml-2">
+        <a class="px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800" href="#">Explore</a>
+        <a class="px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800" href="#">Photos</a>
+        <a class="px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800" href="#">Videos</a>
+        <a class="px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800" href="#">Albums</a>
+      </nav>
+
+      <div class="flex-1 max-w-xl mx-auto hidden sm:block">
+        <div class="relative">
+          <input placeholder="Search photos, videos, albums, people…"
+            class="w-full h-10 rounded-full bg-slate-100 dark:bg-slate-800 pl-11 pr-4 text-sm outline-none focus:ring-2 ring-brand" />
+          <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">⌕</span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 ml-auto">
+        <button onclick="document.documentElement.classList.toggle('dark')"
+          class="w-10 h-10 grid place-items-center rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800" title="Toggle theme">🌓</button>
+        <button class="hidden sm:grid w-10 h-10 place-items-center rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">🔔</button>
+        <button class="px-4 h-10 rounded-full bg-brand hover:bg-brand-hover text-white text-sm font-semibold">+ Upload</button>
+        <img src="https://i.pravatar.cc/64?img=12" class="w-9 h-9 rounded-full ring-2 ring-brand/40" />
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section class="relative">
+    <div class="relative h-[460px] overflow-hidden">
+      <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1920&q=80"
+           class="absolute inset-0 w-full h-full object-cover" />
+      <div class="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-transparent"></div>
+      <div class="absolute inset-0 flex items-end">
+        <div class="mx-auto max-w-[1600px] w-full px-6 lg:px-8 pb-14">
+          <p class="text-brand font-semibold tracking-wide mb-2">FEATURED COLLECTION</p>
+          <h1 class="text-4xl sm:text-6xl font-extrabold text-white max-w-2xl leading-tight">
+            Where moments become masterpieces.
+          </h1>
+          <p class="mt-4 text-slate-200 max-w-xl">High-fidelity photo & video hosting, organization and streaming. Curated by the MediaVault community.</p>
+          <div class="mt-6 flex gap-3">
+            <button class="px-6 h-12 rounded-full bg-white text-ink font-semibold">Start exploring</button>
+            <button class="px-6 h-12 rounded-full bg-white/10 text-white border border-white/30 backdrop-blur">Watch reel ▶</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="mx-auto max-w-[1600px] px-4 sm:px-6 lg:px-8 py-10 space-y-14">
+
+    <!-- ============ CATEGORIES ============ -->
+    <section>
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-xl font-bold">Popular Categories</h2>
+        <a class="text-sm text-brand hover:underline" href="#">View all →</a>
+      </div>
+      <div class="flex gap-3 overflow-x-auto pb-2">
+        <script>
+          document.write(['Nature','Portraits','Architecture','Travel','Street','Aerial','Wildlife','Cinematic','Black & White']
+            .map(c=>`<button class="shrink-0 px-5 py-2 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-brand hover:text-white text-sm font-medium transition">${c}</button>`).join(''));
+        </script>
+      </div>
+    </section>
+
+    <!-- ============ TRENDING / TABS ============ -->
+    <section>
+      <div class="flex items-center gap-2 border-b border-slate-200 dark:border-slate-800 mb-6">
+        <button class="px-1 pb-3 border-b-2 border-brand font-semibold">Trending</button>
+        <button class="px-1 pb-3 ml-6 border-b-2 border-transparent text-slate-400 hover:text-slate-200">Latest</button>
+        <button class="px-1 pb-3 ml-6 border-b-2 border-transparent text-slate-400 hover:text-slate-200">Featured Videos</button>
+      </div>
+
+      <!-- MASONRY GRID -->
+      <div class="masonry" id="grid"></div>
+      <div class="text-center mt-8">
+        <button class="px-6 h-11 rounded-full border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-sm font-semibold">Load more</button>
+      </div>
+    </section>
+
+    <!-- ============ POPULAR ALBUMS ============ -->
+    <section>
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-xl font-bold">Popular Albums</h2>
+        <a class="text-sm text-brand hover:underline" href="#">Browse albums →</a>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="albums"></div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="border-t border-slate-200 dark:border-slate-800 mt-10">
+    <div class="mx-auto max-w-[1600px] px-6 lg:px-8 py-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-8 text-sm">
+      <div>
+        <div class="font-bold text-lg mb-3">Media<span class="text-brand">Vault</span></div>
+        <p class="text-slate-500 dark:text-slate-400">Professional media sharing for creators. Photos, video, streaming, done right.</p>
+      </div>
+      <div><h4 class="font-semibold mb-3">Product</h4><ul class="space-y-2 text-slate-500 dark:text-slate-400"><li>Explore</li><li>Upload Studio</li><li>Albums</li><li>Pricing</li></ul></div>
+      <div><h4 class="font-semibold mb-3">Company</h4><ul class="space-y-2 text-slate-500 dark:text-slate-400"><li>About</li><li>Blog</li><li>Careers</li><li>Contact</li></ul></div>
+      <div><h4 class="font-semibold mb-3">Legal</h4><ul class="space-y-2 text-slate-500 dark:text-slate-400"><li>Terms</li><li>Privacy</li><li>License</li><li>Cookies</li></ul></div>
+    </div>
+    <div class="text-center text-xs text-slate-400 pb-8">© 2026 MediaVault. All rights reserved.</div>
+  </footer>
+
+  <script>
+    // ---- Mock media data drives the masonry grid ----
+    const imgs = [
+      ['1506744038136-46273834b3fb', 'Alpine Lake', 'photo'],
+      ['1441974231531-c6227db76b6e', 'Forest Light', 'photo'],
+      ['1518837695005-2083093ee35b', 'Ocean Waves', 'video'],
+      ['1470071459604-3b5ec3a7fe05', 'Misty Peaks', 'photo'],
+      ['1426604966848-d7adac402bff', 'Valley Vista', 'photo'],
+      ['1454496522488-7a8e488e8606', 'Mountain Road', 'video'],
+      ['1433086966358-54859d0ed716', 'Waterfall', 'photo'],
+      ['1472214103451-9374bd1c798e', 'Golden Hills', 'photo'],
+      ['1418065460487-3e41a6c84dc5', 'Autumn Field', 'photo'],
+      ['1505765050516-f72dcac9c60e', 'Pine Forest', 'video'],
+      ['1444703686981-a3abbc4d4fe3', 'Desert Dunes', 'photo'],
+      ['1439066615861-d1af74d74000', 'Snow Trail', 'photo'],
+    ];
+    document.getElementById('grid').innerHTML = imgs.map((m,i)=>`
+      <figure class="card-hover relative rounded-2xl overflow-hidden bg-slate-800 group cursor-pointer">
+        <img loading="lazy" src="https://images.unsplash.com/photo-${m[0]}?w=600&q=70" class="w-full object-cover" />
+        ${m[2]==='video' ? '<span class="absolute top-3 right-3 px-2 py-1 rounded-md bg-black/60 text-white text-xs font-semibold">▶ 2:14</span>' : ''}
+        <figcaption class="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition">
+          <div class="text-white font-semibold">${m[1]}</div>
+          <div class="flex items-center gap-2 mt-1 text-slate-300 text-xs">
+            <img src="https://i.pravatar.cc/40?img=${i+1}" class="w-5 h-5 rounded-full" />
+            <span>@creator_${i+1}</span><span class="ml-auto">♥ ${(Math.floor(Math.sin(i)*500)+800)}</span>
+          </div>
+        </figcaption>
+      </figure>`).join('');
+
+    document.getElementById('albums').innerHTML = [
+      ['1493246507139-91e8fad9978e','Wanderlust','248'],
+      ['1500530855697-b586d89ba3ee','Cityscapes','132'],
+      ['1465146344425-f00d5f5c8f07','Bloom','89'],
+      ['1502082553048-f009c37129b9','Forest Diaries','311'],
+    ].map(a=>`
+      <a class="card-hover block rounded-2xl overflow-hidden relative aspect-[4/3] group">
+        <img src="https://images.unsplash.com/photo-${a[0]}?w=600&q=70" class="w-full h-full object-cover" />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+        <div class="absolute bottom-0 p-4 text-white">
+          <div class="font-bold text-lg">${a[1]}</div>
+          <div class="text-xs text-slate-300">${a[2]} items</div>
+        </div>
+      </a>`).join('');
+  </script>
+</body>
+</html>

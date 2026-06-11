@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>MediaVault — Design Preview Index</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={darkMode:'class',theme:{extend:{colors:{brand:'#6366f1',ink:'#0b0d12',panel:'#12151c'}}}}</script>
+<style>body{font-family:Inter,system-ui,sans-serif}</style>
+</head>
+<body class="bg-ink text-slate-100 min-h-screen">
+<div class="mx-auto max-w-5xl px-6 py-16">
+  <div class="flex items-center gap-3 mb-2">
+    <span class="grid place-items-center w-12 h-12 rounded-2xl bg-gradient-to-br from-brand to-fuchsia-500 text-white text-2xl">▣</span>
+    <h1 class="text-4xl font-extrabold">Media<span class="text-brand">Vault</span></h1>
+  </div>
+  <p class="text-slate-400 mb-2">High-fidelity clickable mockups — Phase 3/5 deliverable.</p>
+  <p class="text-slate-500 text-sm mb-10">Every page supports light/dark (🌓 toggle in nav), responsive layout, masonry grids, and the real component system. Click any card to open it.</p>
+
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5" id="pages"></div>
+
+  <div class="mt-12 rounded-2xl border border-slate-800 bg-panel p-6">
+    <h2 class="font-bold text-lg mb-2">Approve to continue</h2>
+    <p class="text-slate-400 text-sm">These mockups gate Phase 11+ (full backend + frontend source). Reply <b class="text-brand">approve</b> to generate the production codebase, or tell me what to change first.</p>
+  </div>
+</div>
+<script>
+document.getElementById('pages').innerHTML=[
+  ['Homepage','Hero, masonry, trending, albums','homepage.html','1469474968028-56623f02e42e'],
+  ['Media Detail','Photo view, EXIF, comments','media-detail.html','1506744038136-46273834b3fb'],
+  ['Video Player','HLS, quality, PiP, controls','video-player.html','1518837695005-2083093ee35b'],
+  ['User Profile','Banner, stats, media grid','profile.html','1500530855697-b586d89ba3ee'],
+  ['Album Page','Reorder, cover, owner tools','album.html','1493246507139-91e8fad9978e'],
+  ['Search','Filters, facets, results','search.html','1441974231531-c6227db76b6e'],
+  ['Upload Studio','Dropzone, queue, metadata','upload.html','1444703686981-a3abbc4d4fe3'],
+  ['Admin Dashboard','KPIs, charts, user table','admin.html','1465146344425-f00d5f5c8f07'],
+].map(p=>`<a href="${p[2]}" class="group rounded-2xl overflow-hidden border border-slate-800 bg-panel hover:border-brand transition block">
+  <div class="aspect-video overflow-hidden"><img src="https://images.unsplash.com/photo-${p[3]}?w=500&q=60" class="w-full h-full object-cover group-hover:scale-105 transition"/></div>
+  <div class="p-4"><div class="font-semibold group-hover:text-brand">${p[0]}</div><div class="text-xs text-slate-400 mt-1">${p[1]}</div></div></a>`).join('');
+</script>
+</body></html>

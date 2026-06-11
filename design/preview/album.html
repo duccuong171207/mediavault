@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>MediaVault — Album</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={darkMode:'class',theme:{extend:{colors:{brand:'#6366f1',ink:'#0b0d12'}}}}</script>
+<style>body{font-family:Inter,system-ui,sans-serif}</style>
+</head>
+<body class="bg-white dark:bg-ink text-slate-900 dark:text-slate-100">
+<header class="sticky top-0 z-50 backdrop-blur-xl bg-white/80 dark:bg-ink/80 border-b border-slate-200 dark:border-slate-800">
+  <div class="mx-auto max-w-[1600px] px-6 h-16 flex items-center gap-4">
+    <a href="index.html" class="font-bold text-lg">Media<span class="text-brand">Vault</span></a>
+    <button onclick="document.documentElement.classList.toggle('dark')" class="ml-auto w-10 h-10 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">🌓</button>
+  </div>
+</header>
+
+<!-- ALBUM HERO -->
+<div class="relative h-80">
+  <img src="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?w=1920&q=80" class="w-full h-full object-cover"/>
+  <div class="absolute inset-0 bg-gradient-to-t from-ink via-ink/30 to-transparent"></div>
+  <div class="absolute bottom-0 mx-auto max-w-[1600px] w-full px-6 pb-8 left-1/2 -translate-x-1/2">
+    <span class="px-3 py-1 rounded-full bg-brand text-white text-xs font-semibold">PHOTO ALBUM</span>
+    <h1 class="text-4xl font-extrabold text-white mt-3">Wanderlust 2025</h1>
+    <p class="text-slate-200 mt-2 max-w-xl">A year of chasing horizons — 248 photos from 11 countries.</p>
+    <div class="flex items-center gap-3 mt-4 text-slate-200 text-sm">
+      <img src="https://i.pravatar.cc/40?img=5" class="w-7 h-7 rounded-full"/> Elena Marsh
+      <span>· 248 items</span><span>· 1.4M views</span>
+    </div>
+  </div>
+</div>
+
+<div class="mx-auto max-w-[1600px] px-6 py-6">
+  <!-- OWNER TOOLBAR (edit mode) -->
+  <div class="flex items-center gap-2 mb-6 flex-wrap">
+    <button class="px-4 h-10 rounded-full bg-brand text-white text-sm font-semibold">↕ Reorder</button>
+    <button class="px-4 h-10 rounded-full border border-slate-300 dark:border-slate-700 text-sm">✎ Rename</button>
+    <button class="px-4 h-10 rounded-full border border-slate-300 dark:border-slate-700 text-sm">🖼 Set cover</button>
+    <button class="px-4 h-10 rounded-full border border-slate-300 dark:border-slate-700 text-sm">+ Add media</button>
+    <button class="px-4 h-10 rounded-full border border-red-500/40 text-red-400 text-sm">🗑 Delete album</button>
+    <button class="ml-auto px-4 h-10 rounded-full border border-slate-300 dark:border-slate-700 text-sm">➦ Share</button>
+  </div>
+
+  <!-- DRAGGABLE GRID -->
+  <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3" id="grid"></div>
+</div>
+<script>
+document.getElementById('grid').innerHTML=['1493246507139-91e8fad9978e','1500530855697-b586d89ba3ee','1465146344425-f00d5f5c8f07','1502082553048-f009c37129b9','1506744038136-46273834b3fb','1441974231531-c6227db76b6e','1470071459604-3b5ec3a7fe05','1426604966848-d7adac402bff','1433086966358-54859d0ed716','1472214103451-9374bd1c798e','1418065460487-3e41a6c84dc5','1444703686981-a3abbc4d4fe3']
+  .map((id,i)=>`<figure class="relative aspect-square rounded-xl overflow-hidden group cursor-move"><img src="https://images.unsplash.com/photo-${id}?w=400&q=70" class="w-full h-full object-cover"/><span class="absolute top-2 left-2 w-6 h-6 grid place-items-center rounded-md bg-black/60 text-white text-xs opacity-0 group-hover:opacity-100">⠿</span>${i==0?'<span class="absolute bottom-2 left-2 px-2 py-0.5 rounded bg-brand text-white text-xs">Cover</span>':''}</figure>`).join('');
+</script>
+</body></html>

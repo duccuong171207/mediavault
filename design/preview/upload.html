@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>MediaVault — Upload Studio</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={darkMode:'class',theme:{extend:{colors:{brand:'#6366f1',ink:'#0b0d12',panel:'#12151c'}}}}</script>
+<style>body{font-family:Inter,system-ui,sans-serif}</style>
+</head>
+<body class="bg-slate-50 dark:bg-ink text-slate-900 dark:text-slate-100">
+<header class="sticky top-0 z-50 backdrop-blur-xl bg-white/80 dark:bg-ink/80 border-b border-slate-200 dark:border-slate-800">
+  <div class="mx-auto max-w-[1400px] px-6 h-16 flex items-center gap-4">
+    <a href="index.html" class="font-bold text-lg">Media<span class="text-brand">Vault</span></a>
+    <span class="text-slate-400">/ Upload Studio</span>
+    <div class="ml-auto flex gap-2">
+      <button onclick="document.documentElement.classList.toggle('dark')" class="w-10 h-10 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">🌓</button>
+      <button class="px-4 h-10 rounded-full border border-slate-300 dark:border-slate-700 text-sm">Save draft</button>
+      <button class="px-5 h-10 rounded-full bg-brand text-white text-sm font-semibold">Publish all</button>
+    </div>
+  </div>
+</header>
+
+<div class="mx-auto max-w-[1400px] px-6 py-8 grid lg:grid-cols-[1fr_380px] gap-8">
+  <!-- LEFT: dropzone + queue -->
+  <div>
+    <div class="border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-2xl p-12 text-center bg-white dark:bg-panel">
+      <div class="text-5xl mb-3">⬆️</div>
+      <h2 class="text-xl font-bold">Drag & drop media here</h2>
+      <p class="text-slate-400 text-sm mt-1">JPG · PNG · WEBP · GIF · TIFF · MP4 · MOV · MKV · WEBM — up to 5 GB each</p>
+      <button class="mt-4 px-6 h-11 rounded-full bg-brand text-white font-semibold">Browse files</button>
+    </div>
+
+    <h3 class="font-bold mt-8 mb-3">Upload Queue (3)</h3>
+    <div class="space-y-3" id="queue"></div>
+  </div>
+
+  <!-- RIGHT: metadata editor for selected item -->
+  <aside class="rounded-2xl bg-white dark:bg-panel border border-slate-200 dark:border-slate-800 p-5 h-fit sticky top-24">
+    <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=600&q=70" class="rounded-xl w-full aspect-video object-cover"/>
+    <div class="space-y-4 mt-5 text-sm">
+      <div><label class="block text-slate-400 mb-1">Title</label><input value="Alpine Lake at Dawn" class="w-full h-10 rounded-lg bg-slate-100 dark:bg-slate-800 px-3 outline-none"/></div>
+      <div><label class="block text-slate-400 mb-1">Description</label><textarea rows="3" class="w-full rounded-lg bg-slate-100 dark:bg-slate-800 px-3 py-2 outline-none">First light hitting the still water…</textarea></div>
+      <div><label class="block text-slate-400 mb-1">Category</label><select class="w-full h-10 rounded-lg bg-slate-100 dark:bg-slate-800 px-3 outline-none"><option>Nature</option><option>Travel</option><option>Portraits</option></select></div>
+      <div><label class="block text-slate-400 mb-1">Tags</label><div class="flex flex-wrap gap-1 p-2 rounded-lg bg-slate-100 dark:bg-slate-800">
+        <span class="px-2 py-0.5 rounded bg-brand/20 text-brand text-xs">nature ✕</span><span class="px-2 py-0.5 rounded bg-brand/20 text-brand text-xs">sunrise ✕</span><input class="flex-1 bg-transparent outline-none text-xs" placeholder="Add tag…"/></div></div>
+      <div><label class="block text-slate-400 mb-1">Album</label><select class="w-full h-10 rounded-lg bg-slate-100 dark:bg-slate-800 px-3 outline-none"><option>Wanderlust 2025</option><option>+ New album</option></select></div>
+      <div class="flex items-center justify-between"><span class="text-slate-400">Visibility</span>
+        <select class="h-9 rounded-lg bg-slate-100 dark:bg-slate-800 px-3 outline-none"><option>🌐 Public</option><option>🔒 Private</option><option>🔗 Unlisted</option></select></div>
+      <div class="rounded-lg bg-slate-100 dark:bg-slate-800 p-3 text-xs text-slate-400">
+        <div class="font-semibold text-slate-300 mb-1">Auto-extracted EXIF</div>
+        Sony α7R IV · 21mm · f/11 · 1/4s · ISO 100 · 9504×6336
+      </div>
+    </div>
+  </aside>
+</div>
+<script>
+document.getElementById('queue').innerHTML=[
+  ['Alpine Lake at Dawn','photo','100','Done · 5 sizes generated'],
+  ['Coastal Drone Reel.mp4','video','62','Transcoding 720p… HLS pending'],
+  ['Forest Path.tiff','photo','28','Generating previews…']
+].map((q,i)=>`<div class="rounded-xl bg-white dark:bg-panel border border-slate-200 dark:border-slate-800 p-3 flex items-center gap-3">
+  <div class="w-14 h-14 rounded-lg bg-slate-200 dark:bg-slate-700 grid place-items-center text-xl">${q[1]=='video'?'🎬':'🖼'}</div>
+  <div class="flex-1"><div class="font-medium text-sm">${q[0]}</div>
+    <div class="h-1.5 rounded-full bg-slate-200 dark:bg-slate-700 mt-2"><div class="h-1.5 rounded-full ${q[2]=='100'?'bg-emerald-500':'bg-brand'}" style="width:${q[2]}%"></div></div>
+    <div class="text-xs text-slate-400 mt-1">${q[3]}</div></div>
+  <button class="text-slate-400">${q[2]=='100'?'✓':'✕'}</button></div>`).join('');
+</script>
+</body></html>

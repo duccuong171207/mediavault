@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>MediaVault — Media Detail</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={darkMode:'class',theme:{extend:{colors:{brand:'#6366f1',ink:'#0b0d12'}}}}</script>
+<style>body{font-family:Inter,system-ui,sans-serif}</style>
+</head>
+<body class="bg-white dark:bg-ink text-slate-900 dark:text-slate-100">
+<header class="sticky top-0 z-50 backdrop-blur-xl bg-white/80 dark:bg-ink/80 border-b border-slate-200 dark:border-slate-800">
+  <div class="mx-auto max-w-[1600px] px-6 h-16 flex items-center gap-4">
+    <a href="index.html" class="font-bold text-lg">Media<span class="text-brand">Vault</span></a>
+    <button onclick="document.documentElement.classList.toggle('dark')" class="ml-auto w-10 h-10 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">🌓</button>
+    <img src="https://i.pravatar.cc/64?img=12" class="w-9 h-9 rounded-full"/>
+  </div>
+</header>
+
+<main class="mx-auto max-w-[1600px] px-6 py-8 grid lg:grid-cols-[1fr_360px] gap-8">
+  <!-- LEFT: media stage -->
+  <div>
+    <div class="rounded-2xl overflow-hidden bg-black grid place-items-center">
+      <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1400&q=85" class="w-full max-h-[72vh] object-contain"/>
+    </div>
+
+    <!-- ACTION BAR -->
+    <div class="flex items-center gap-2 mt-4 flex-wrap">
+      <button class="px-4 h-10 rounded-full bg-brand text-white text-sm font-semibold">♥ Favorite · 1.2k</button>
+      <button class="px-4 h-10 rounded-full border border-slate-300 dark:border-slate-700 text-sm">⬇ Download</button>
+      <button class="px-4 h-10 rounded-full border border-slate-300 dark:border-slate-700 text-sm">➦ Share</button>
+      <button class="px-4 h-10 rounded-full border border-slate-300 dark:border-slate-700 text-sm">+ Add to album</button>
+      <span class="ml-auto text-sm text-slate-400">👁 48,209 views</span>
+    </div>
+
+    <h1 class="text-2xl font-bold mt-6">Alpine Lake at Dawn</h1>
+    <p class="text-slate-500 dark:text-slate-400 mt-2 max-w-2xl">First light hitting the still water of a high-altitude glacial lake. Shot on a cold September morning during a three-day backcountry trek.</p>
+
+    <div class="flex flex-wrap gap-2 mt-4">
+      <script>document.write(['nature','landscape','mountains','sunrise','long-exposure','travel'].map(t=>`<span class="px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-xs">#${t}</span>`).join(''))</script>
+    </div>
+
+    <!-- COMMENTS -->
+    <section class="mt-10">
+      <h3 class="font-bold mb-4">Comments · 38</h3>
+      <div class="flex gap-3 mb-6">
+        <img src="https://i.pravatar.cc/40?img=12" class="w-9 h-9 rounded-full"/>
+        <input class="flex-1 h-10 rounded-full bg-slate-100 dark:bg-slate-800 px-4 text-sm outline-none" placeholder="Add a comment…"/>
+      </div>
+      <div class="space-y-5" id="comments"></div>
+    </section>
+  </div>
+
+  <!-- RIGHT: rail -->
+  <aside class="space-y-6">
+    <div class="rounded-2xl border border-slate-200 dark:border-slate-800 p-5">
+      <div class="flex items-center gap-3">
+        <img src="https://i.pravatar.cc/80?img=5" class="w-12 h-12 rounded-full"/>
+        <div><div class="font-semibold">Elena Marsh</div><div class="text-xs text-slate-400">@elenamarsh · 12.4k followers</div></div>
+        <button class="ml-auto px-4 h-9 rounded-full bg-brand text-white text-sm font-semibold">Follow</button>
+      </div>
+    </div>
+
+    <div class="rounded-2xl border border-slate-200 dark:border-slate-800 p-5">
+      <h3 class="font-bold mb-4">📷 Capture Details</h3>
+      <dl class="text-sm space-y-2" id="exif"></dl>
+    </div>
+
+    <div class="rounded-2xl border border-slate-200 dark:border-slate-800 p-5">
+      <h3 class="font-bold mb-3">🗺 Location</h3>
+      <div class="aspect-video rounded-xl bg-gradient-to-br from-emerald-900 to-slate-900 grid place-items-center text-slate-400 text-sm">46.5197° N, 6.6323° E</div>
+    </div>
+
+    <div>
+      <h3 class="font-bold mb-3">Similar Media</h3>
+      <div class="grid grid-cols-3 gap-2" id="similar"></div>
+    </div>
+  </aside>
+</main>
+
+<script>
+  document.getElementById('exif').innerHTML = [
+    ['Camera','Sony α7R IV'],['Lens','FE 16-35mm f/2.8 GM'],['Focal length','21 mm'],
+    ['Aperture','f/11'],['Shutter','1/4 s'],['ISO','100'],['Date taken','Sep 14, 2025'],['Resolution','9504 × 6336']
+  ].map(r=>`<div class="flex justify-between"><dt class="text-slate-400">${r[0]}</dt><dd class="font-medium">${r[1]}</dd></div>`).join('');
+
+  document.getElementById('comments').innerHTML = [
+    ['img=20','Marcus','Unreal tones. What time did you shoot this?','2h'],
+    ['img=33','Priya','The reflection is so clean 😍','5h'],
+    ['img=14','Tom','Bookmarking for inspiration.','1d'],
+  ].map(c=>`<div class="flex gap-3"><img src="https://i.pravatar.cc/40?${c[0]}" class="w-9 h-9 rounded-full"/>
+    <div><div class="text-sm"><b>${c[1]}</b> <span class="text-slate-400 text-xs">· ${c[3]}</span></div>
+    <div class="text-sm text-slate-600 dark:text-slate-300">${c[2]}</div></div></div>`).join('');
+
+  document.getElementById('similar').innerHTML = ['1470071459604-3b5ec3a7fe05','1433086966358-54859d0ed716','1472214103451-9374bd1c798e','1426604966848-d7adac402bff','1444703686981-a3abbc4d4fe3','1439066615861-d1af74d74000']
+    .map(id=>`<img src="https://images.unsplash.com/photo-${id}?w=200&q=60" class="aspect-square object-cover rounded-lg cursor-pointer hover:opacity-80"/>`).join('');
+</script>
+</body>
+</html>
